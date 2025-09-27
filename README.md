@@ -36,5 +36,18 @@ Open the demo at `examples/journal_bot/index.html` (serve it via any static serv
 python conformance/runner.py --base http://127.0.0.1:8000
 ```
 
+## 📦 Repo Ecosystem
+
+- **[GMQL](./GMQL)** — query language for memory  
+- **[Genesis-v2](./Genesis-v2)** — reference engine (FastAPI)  
+- **[LifeDB](./LifeDB)** — memory layer (SQLite → pgvector)  
+- **[Rosetta](./Rosetta)** — privacy, consent, audit layer  
+- **[GGA](./GGA)** — Genesis General Algebra  
+- **[GAA](./GAA)** — Genesis Agent Algebra  
+- **[Genesis-algebra](./Genesis-algebra)** — bridges GGA and GAA  
+- **[Genesis-Rosetta](./Genesis-Rosetta)** — manifest / whitepaper  
+
+👉 All repos implement or extend the **GCS v0.1 template**.
+
 ## License
 MIT
