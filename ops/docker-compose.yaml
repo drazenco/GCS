@@ -1,0 +1,12 @@
+services:
+  gcs:
+    build:
+      context: ..
+      dockerfile: ops/server.Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../server/python_fastapi:/app/server/python_fastapi
+      - ../spec:/app/spec
+      - ../conformance:/app/conformance
+    command: uvicorn server.python_fastapi.app:app --host 0.0.0.0 --port 8000

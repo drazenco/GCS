@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GCS Journal Bot Demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 16px; }
+    header { display:flex; align-items:center; justify-content:space-between; }
+    textarea { width:100%; min-height:120px; }
+    .row { display:flex; gap:8px; }
+    .card { border:1px solid #ddd; border-radius:8px; padding:12px; margin-top:12px; }
+    .muted { color:#666; font-size: 12px; }
+    button { padding:10px 14px; border-radius:8px; border:1px solid #222; cursor:pointer; }
+    input, select { padding:10px; border-radius:8px; border:1px solid #ccc; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧠 GCS Journal Bot</h1>
+    <span class="muted">GCS v0.1</span>
+  </header>
+
+  <div class="card">
+    <div class="grid">
+      <label>Base URL<br/><input id="base" value="http://127.0.0.1:8000"/></label>
+      <label>Subject ID<br/><input id="subject" value="user_123"/></label>
+    </div>
+    <label>Journal entry</label>
+    <textarea id="text" placeholder="What happened today?"></textarea>
+    <div class="row">
+      <button onclick="store()">Store</button>
+      <button onclick="recall()">Recall</button>
+      <button onclick="exportNd()">Export</button>
+    </div>
+    <div class="muted" id="msg"></div>
+  </div>
+
+  <div id="results"></div>
+
+<script>
+async function store(){
+  const base = document.getElementById('base').value;
+  const subject = document.getElementById('subject').value;
+  const text = document.getElementById('text').value;
+  const r = await fetch(base + '/store', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      tenant_id:'demo', subject_id:subject, type:'note',
+      tags:['journal'], content:{text}
+    })
+  });
+  const j = await r.json();
+  document.getElementById('msg').textContent = 'Stored id: ' + j.id;
+  document.getElementById('text').value='';
+}
+
+async function recall(){
+  const base = document.getElementById('base').value;
+  const subject = document.getElementById('subject').value;
+  const r = await fetch(base + '/recall', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({tenant_id:'demo', subject_id:subject, limit:20})
+  });
+  const j = await r.json();
+  const out = document.getElementById('results');
+  out.innerHTML = '';
+  j.items.forEach(it => {
+    const el = document.createElement('div');
+    el.className='card';
+    el.innerHTML = '<b>'+it.type+'</b> · <span class="muted">'+it.created_at+'</span><br/>'
+      + (it.content?.text || JSON.stringify(it.content));
+    out.appendChild(el);
+  });
+}
+
+async function exportNd(){
+  const base = document.getElementById('base').value;
+  const subject = document.getElementById('subject').value;
+  const r = await fetch(base + '/export', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({subject_id:subject})
+  });
+  const text = await r.text();
+  const blob = new Blob([text], {type:'application/x-ndjson'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'export.ndjson';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

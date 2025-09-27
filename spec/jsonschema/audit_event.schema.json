@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AuditEvent",
+  "type": "object",
+  "required": [
+    "id",
+    "ts",
+    "actor",
+    "action",
+    "target_id"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "object"
+    }
+  }
+}

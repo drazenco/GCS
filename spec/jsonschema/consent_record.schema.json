@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConsentRecord",
+  "type": "object",
+  "required": [
+    "id",
+    "subject_id",
+    "created_at",
+    "updated_at",
+    "grants"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "subject_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "grants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "scope",
+          "status"
+        ],
+        "properties": {
+          "scope": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

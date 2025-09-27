@@ -1,0 +1,13 @@
+{
+  "store": {
+    "tenant_id": "demo",
+    "subject_id": "user_123",
+    "type": "note",
+    "tags": [
+      "temp"
+    ],
+    "content": {
+      "text": "to be forgotten"
+    }
+  }
+}

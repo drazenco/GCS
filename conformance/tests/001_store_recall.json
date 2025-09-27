@@ -1,0 +1,19 @@
+{
+  "store": {
+    "tenant_id": "demo",
+    "subject_id": "user_123",
+    "type": "note",
+    "tags": [
+      "journal"
+    ],
+    "content": {
+      "text": "hello world"
+    }
+  },
+  "recall": {
+    "tenant_id": "demo",
+    "subject_id": "user_123",
+    "q": "hello",
+    "limit": 5
+  }
+}
