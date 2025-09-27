@@ -1,53 +1,84 @@
-# Genesis Core Standard (GCS) v0.1 — Template
 
-A thin, stable foundation that unifies **GMQL / Genesis v2** repos with a single API contract
-and conformance tests. Use this template for new adapters, SDKs, or demos.
+# 🌌 Genesis Core Standard (GCS)
 
-## What you get
-- **OpenAPI** + **JSON Schemas** for `MemoryRecord`, `ConsentRecord`, `AuditEvent`.
-- Minimal **FastAPI** reference server (`/server/python_fastapi`) using SQLite.
-- **Conformance kit** to validate STORE / RECALL / FORGET / CONSENT / EXPORT behavior.
-- A tiny **Journal Bot** demo (static HTML) hitting the API to showcase GDPR flows.
-- **Docker Compose** + Makefile for one‑command run.
+[![Build](https://github.com/drazenco/GCS/actions/workflows/python-tests.yml/badge.svg)](https://github.com/drazenco/GCS/actions/workflows/python-tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Status: Developer Preview](https://img.shields.io/badge/status-developer--preview-orange)
 
-## API contract (GCS v0.1)
-- `POST /store`
-- `POST /recall`
-- `POST /forget`
-- `POST /consent`
-- `POST /export` (NDJSON stream)
-- `GET /healthz`
-- `GET /version`
+**Genesis Core Standard (GCS)** defines the **core API contract for AI memory systems**.  
+It is the **specification repo** — the reference point for all Genesis components.
 
-## Quickstart
-```bash
-make up           # build & run via Docker
-# or local:
-python -m venv .venv && source .venv/bin/activate
-pip install -r server/python_fastapi/requirements.txt
-uvicorn server.python_fastapi.app:app --reload
+Our goal: to create an **“SQL for memories”** — stable, interoperable, and aligned with GDPR/AI Act rules.
+
+---
+
+## 🔑 Core (v0.1 — stable foundation)
+
+**Invariant core operators** (mandatory in every version ≥ v0.1):
+
+- `STORE` — store memory  
+- `RECALL` — retrieve memory  
+- `FORGET` — right to be forgotten  
+- `CONSENT` — consent management  
+- `EXPORT` — data transfer (NDJSON)
+
+---
+
+## 🧮 Version Evolution
+
+```
+v0.1  →  v0.2      →      v0.3         →        v1.0
+CRUD+GDPR   +semantics     +distribution       +algebra
+           (SUMMARY,EMBED) (SHARE, PIPE)    (PAR,CHECK, monoid)
 ```
 
-Open the demo at `examples/journal_bot/index.html` (serve it via any static server or open directly).
+- **v0.1** — stable core (CRUD + GDPR tools)  
+- **v0.2** — semantic layer (embeddings, summary)  
+- **v0.3** — distributed memory graph (sharing, pipelines)  
+- **v1.0** — memory algebra (M, O, ∘) → monoid
 
-## Conformance
-```bash
-# run a local server on http://127.0.0.1:8000 first
-python conformance/runner.py --base http://127.0.0.1:8000
-```
+---
 
-## 📦 Repo Ecosystem
+## 📦 Ecosystem Repos
 
-- **[GMQL](./GMQL)** — query language for memory  
-- **[Genesis-v2](./Genesis-v2)** — reference engine (FastAPI)  
-- **[LifeDB](./LifeDB)** — memory layer (SQLite → pgvector)  
-- **[Rosetta](./Rosetta)** — privacy, consent, audit layer  
-- **[GGA](./GGA)** — Genesis General Algebra  
-- **[GAA](./GAA)** — Genesis Agent Algebra  
-- **[Genesis-algebra](./Genesis-algebra)** — bridges GGA and GAA  
-- **[Genesis-Rosetta](./Genesis-Rosetta)** — manifest / whitepaper  
+- **[Genesis-v2](https://github.com/drazenco/Genesis-v2)** — reference engine (FastAPI)  
+- **[GMQL](https://github.com/drazenco/GMQL)** — query language for memory  
+- **[LifeDB](https://github.com/drazenco/LifeDB)** — memory layer (SQLite → pgvector)  
+- **[Rosetta](https://github.com/drazenco/Rosetta)** — privacy, consent, audit layer  
+- **[GGA](https://github.com/drazenco/GGA)** — Genesis General Algebra  
+- **[GAA](https://github.com/drazenco/GAA)** — Genesis Agent Algebra  
+- **[Genesis-algebra](https://github.com/drazenco/Genesis-algebra)** — bridges GGA and GAA  
+- **[Genesis-Rosetta](https://github.com/drazenco/Genesis-Rosetta)** — manifest / whitepaper  
 
-👉 All repos implement or extend the **GCS v0.1 template**.
+All these repos **implement or extend GCS v0.1**.
 
-## License
-MIT
+---
+
+## 🚀 Reference Template
+
+📂 **gcs-template-v0.1** — starter kit for new repos:
+
+- OpenAPI + JSON Schema  
+- FastAPI reference server (SQLite)  
+- Conformance kit (STORE/RECALL/FORGET/CONSENT/EXPORT tests)  
+- Journal Bot demo (GDPR use-case)  
+- Docker Compose + Makefile  
+
+---
+
+## ✅ Conformance
+
+GCS provides the official **conformance kit**:  
+Every implementation must pass the **STORE/RECALL/FORGET/CONSENT/EXPORT** test suite to claim compliance.
+
+---
+
+## 📜 License
+
+MIT License — open for community use and contribution.  
+⚠️ Developer Preview — not production ready.
+
+---
+
+💡 **Vision:**  
+Genesis Core Standard aims to be for **AI memory** what SQL was for relational databases — a **unified language and API contract**, stable across versions, flexible for research, and robust for industry.
